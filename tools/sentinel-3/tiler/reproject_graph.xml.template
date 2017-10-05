@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{xfdumanifest}</file>
+      <formatName>Sen3_SLSTRL1B_1km</formatName>
+    </parameters>
+  </node>
+  <node id="Reproject">
+    <operator>Reproject</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <wktFile/>
+      <crs>GEOGCS["WGS84(DD)", &#xD;
+  DATUM["WGS84", &#xD;
+    SPHEROID["WGS84", 6378137.0, 298.257223563]], &#xD;
+  PRIMEM["Greenwich", 0.0], &#xD;
+  UNIT["degree", 0.017453292519943295], &#xD;
+  AXIS["Geodetic longitude", EAST], &#xD;
+  AXIS["Geodetic latitude", NORTH]]</crs>
+      <resampling>Nearest</resampling>
+      <referencePixelX/>
+      <referencePixelY/>
+      <easting/>
+      <northing/>
+      <orientation/>
+      <pixelSizeX/>
+      <pixelSizeY/>
+      <width/>
+      <height/>
+      <tileSizeX/>
+      <tileSizeY/>
+      <orthorectify>false</orthorectify>
+      <elevationModelName/>
+      <noDataValue>-9999.0</noDataValue>
+      <includeTiePointGrids>false</includeTiePointGrids>
+      <addDeltaBands>false</addDeltaBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_cloud_in">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>cloud_in</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_confidence_in">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>confidence_in</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_cloud_io">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>cloud_io</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_confidence_io">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>confidence_io</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S7_BT_in">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S7_BT_in</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S7_BT_io">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S7_BT_io</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S8_BT_in">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S8_BT_in</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S8_BT_io">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S8_BT_io</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S9_BT_in">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S9_BT_in</sourceBands>
+    </parameters>
+  </node>
+  <node id="BandSelect_S9_BT_io">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>S9_BT_io</sourceBands>
+    </parameters>
+  </node>
+  
+  <node id="Write_cloud_in">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_cloud_in"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}cloud_in.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_cloud_io">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_cloud_io"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}cloud_io.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_confidence_in">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_confidence_in"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}confidence_in.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_confidence_io">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_confidence_io"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}confidence_io.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S7_BT_in">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S7_BT_in"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S7_BT_in.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S7_BT_io">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S7_BT_io"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S7_BT_io.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S8_BT_in">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S8_BT_in"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S8_BT_in.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S8_BT_io">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S8_BT_io"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S8_BT_io.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S9_BT_in">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S9_BT_in"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S9_BT_in.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write_S9_BT_io">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BandSelect_S9_BT_io"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>{snap_output}S9_BT_io.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+</graph>
