@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import os, sys, argparse, time, shutil
 from osgeo import ogr, osr
 from subprocess import call
